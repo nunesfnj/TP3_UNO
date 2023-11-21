@@ -7,6 +7,8 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
+void DefineOrdem(TCarta* pCarta);
+void Destroca(TCarta* pCarta);
 
 
 #endif //TP3_CARTA_H
