@@ -1,4 +1,4 @@
 #include "Carta.h"
 
-void BubbleSort(TCarta* pCarta, int n);
-void SelectSort(TCarta* pCarta, int n);
+void BubbleSort(TCarta cartas[], int tamanho);
+void ImprimirComplexidade();
