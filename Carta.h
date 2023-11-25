@@ -1,6 +1,3 @@
-#include <stdio.h>
-
-//cogitar iniciar a enum em 0
 typedef enum{
     VERDE,
     AMARELO, 
@@ -25,4 +22,4 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
-void ImprimeMao(TCarta* pCarta);
+void ImprimirMao(TCarta cartas[], int tamanho);
