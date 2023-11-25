@@ -13,8 +13,8 @@ typedef enum{
     NUMERO,
     PULAR,
     VOLTAR,
-    //"+2", //isso aqui deve ta mt errado
-    //"+4",
+    MAIS_DOIS, 
+    MAIS_QUATRO,
     CORINGA,
 } Tipo;
 
