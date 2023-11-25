@@ -4,13 +4,14 @@
 
 
 void MaoInicial(TCarta* pCarta){
-    for (int i = 0; i < 3; i++){
-        printf("Cor carta % c: ", i+1);
+    for (int i = 0; i < 10; i++){
+        printf("Cor carta %s: ", i+1);
         scanf(" %c", & pCarta[i].cor);
         printf("Valor carta %d: ", i+1);
         scanf("%d", & pCarta[i].valor);
+        }
     }
-}
+
 
 void ImprimeMao(TCarta *pCarta){
     //falta implementar imprime
