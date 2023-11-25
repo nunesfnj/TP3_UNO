@@ -1,40 +1,38 @@
 #include "Ordenacao.h"
 #include <stdio.h>
 
-void BubbleSort (TCarta* v, int n ){
+// Variáveis globais para rastrear a complexidade
+int comparacoes = 0;
+int movimentacoes = 0;
+
+void ImprimirComplexidade() {
+    printf("Comparacoes: %d, Movimentacoes: %d\n", comparacoes, movimentacoes);
+}
+
+void BubbleSort(TCarta* pCarta, int tamanho) {
     int i, j;
     TCarta aux;
-    for( i = 0 ; i < n-1 ; i++ ){
-        for( j = 1 ; j < n-i ; j++ ){
-            if ( v[j].cor < v[j-1].cor){
-                aux = v[j];
-                v[j] = v[j-1];
-                v[j-1] = aux;
-            } 
-            else if (v[j].cor == v[j+1].cor && v[j].valor > v[j+1].valor){
-                aux = v[j];
-                v[j] = v[j-1];
-                v[j-1] = aux;
+
+    for (i = 0; i < tamanho - 1; i++) {
+        for (j = 1; j < tamanho - i; j++) {
+            // Compara primeiro as cores
+            comparacoes++;
+            if (pCarta[j].cor < pCarta[j - 1].cor) {
+                aux = pCarta[j];
+                pCarta[j] = pCarta[j - 1];
+                pCarta[j - 1] = aux;
+                movimentacoes++;
+            }
+            // Se as cores são iguais, compara pelos valores
+            else if (pCarta[j].cor == pCarta[j - 1].cor && pCarta[j].valor < pCarta[j - 1].valor) {
+                aux = pCarta[j];
+                pCarta[j] = pCarta[j - 1];
+                pCarta[j - 1] = aux;
+                movimentacoes++;
             }
         }
     }
+
+    // Chama a função para imprimir complexidade
+    ImprimirComplexidade();
 }
-
-
-
-void Selectsort (TCarta* v, int n){
-    int i, j, Min;
-    TCarta aux;
-    for (i = 0; i < n - 1; i++){
-        Min = i;
-        for (j = i + 1 ; j < n; j++){
-            if ( v[j].cor < v[Min].cor){
-            Min = j;
-            aux = v[Min];
-            v[Min] = v[i];
-            v[i] = aux;
-            }
-        }
-    }
-}
-
