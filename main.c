@@ -2,15 +2,22 @@
 #include <stdio.h>
 #include <time.h>
 
-int main(){
+int main() {
+    const int numCartas = 10;
+    TCarta cartas[numCartas];
 
-    TCarta mao1;
-    MaoInicial(&mao1);
-    clock_t inicio = clock(); //Inicia o registro de tempo
-    BubbleSort(&mao1, 10);
-    ImprimeMao(&mao1);
-    clock_t fim = clock(); //Termina o registro de tempo
-    double tempoDecorrido = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    MaoInicial(cartas);
+
+    // Antes da ordenação
+    printf("MAO INICIAL:\nMao de cartas:\n");
+    ImprimirMao(cartas, numCartas);
+
+    // Aplica Bubble Sort
+    BubbleSort(cartas, numCartas);
+
+    // Depois da ordenação
+    printf("\nMao de cartas:\n");
+    ImprimirMao(cartas, numCartas);
 
     return 0;
 }
