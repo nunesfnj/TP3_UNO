@@ -1,14 +1,28 @@
-#ifndef TP3_CARTA_H
-#define TP3_CARTA_H
+#include <stdio.h>
+
+//cogitar iniciar a enum em 0
+typedef enum{
+    VERDE,
+    AMARELO, 
+    VERMELHO, 
+    AZUL,
+    PRETO, 
+} Cor;
+
+typedef enum{
+    NUMERO,
+    PULAR,
+    VOLTAR,
+    MAIS_DOIS, 
+    MAIS_QUATRO,
+    CORINGA,
+} Tipo;
 
 typedef struct{
-    char cor;
+    Cor cor;
+    Tipo tipo;
     int valor;
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
-void DefineOrdem(TCarta* pCarta);
-void Destroca(TCarta* pCarta);
-
-
-#endif //TP3_CARTA_H
+void ImprimeMao(TCarta* pCarta);
