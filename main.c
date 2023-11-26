@@ -4,7 +4,7 @@
 
 int main() {
     const int numCartas = 10;
-    TCarta cartas[numCartas];
+    TCarta cartas[numCartas]; // aqui nao deveria ser ponteiro ?
     int tipo, tipoOrdenacao;
 
     printf("Selecione (1) para o modo interativo ou (2) para o modo por Arquivo:");
@@ -24,15 +24,23 @@ int main() {
     switch(tipoOrdenacao){
         case 1:
             // Aplica Bubble Sort
-            BubbleSort(cartas, numCartas);
+            BubbleSort(cartas, numCartas); //aqui nao deveria ser &cartas?
             printf("\nBubbleSort:\n");
             ImprimirMao(cartas, numCartas);
             ImprimirComplexidade();
+            break;
         case 2:
-            SelectSort(cartas, numCartas);
+            SelectionSort(cartas, numCartas);
             printf("\nSelectSort:\n");
             ImprimirMao(cartas, numCartas);
             ImprimirComplexidade();
+            break;
+        case 6:
+            HeapSort(cartas, &numCartas);
+            printf("\nHeapSort:\n");
+            ImprimirMao(cartas, numCartas);
+            //falta fazer complexidade
+            break;
     }
 
 }
