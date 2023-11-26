@@ -32,7 +32,31 @@ void BubbleSort(TCarta* pCarta, int tamanho) {
             }
         }
     }
-
-    // Chama a função para imprimir complexidade
-    ImprimirComplexidade();
 }
+void SelectSort(TCarta* pCarta, int tamanho) {
+    int i, j, Min;
+    TCarta aux;
+    
+    for (i = 0; i < tamanho - 1; i++) {
+        Min = i;
+        
+        for (j = i + 1; j < tamanho; j++) {
+            comparacoes++;
+            if (pCarta[j].cor < pCarta[Min].cor) {
+                Min = j;
+            }
+            else if (pCarta[j].cor == pCarta[Min].cor && pCarta[j].valor < pCarta[Min].valor) {
+                Min = j;
+            }
+        }
+        
+        // Movimentar a troca para fora do loop interno
+        if (Min != i) {
+            aux = pCarta[Min];
+            pCarta[Min] = pCarta[i];
+            pCarta[i] = aux;
+            movimentacoes++;
+        }
+    }
+}
+
