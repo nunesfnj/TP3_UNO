@@ -6,7 +6,7 @@ int comparacoes = 0;
 int movimentacoes = 0;
 
 void ImprimirComplexidade() {
-    printf("Comparacoes: %d, Movimentacoes: %d\n", comparacoes, movimentacoes);
+    printf("Comparacoes: %d, Movimentacoes: %d", comparacoes, movimentacoes);
 }
 
 void BubbleSort(TCarta* pCarta, int tamanho) {
@@ -33,7 +33,8 @@ void BubbleSort(TCarta* pCarta, int tamanho) {
         }
     }
 }
-void SelectionSort(TCarta* pCarta, int tamanho) {
+
+void SelectSort(TCarta* pCarta, int tamanho) {
     int i, j, Min;
     TCarta aux;
     
@@ -60,6 +61,30 @@ void SelectionSort(TCarta* pCarta, int tamanho) {
     }
 }
 
+void ShellSort(TCarta* pCarta, int tamanho) {
+    int i, j;
+    int h = 1;
+    TCarta aux;
+
+    do h = h * 3 + 1; while (h < tamanho);
+    
+    do {
+        h = h / 3;
+        for (i = h; i < tamanho; i++) {
+            aux = pCarta[i];
+            j = i;
+
+            while (j >= h && (pCarta[j - h].cor > aux.cor || (pCarta[j - h].cor == aux.cor && pCarta[j - h].valor > aux.valor))) {
+                pCarta[j] = pCarta[j - h];
+                j -= h;
+            }
+
+            pCarta[j] = aux;
+        }
+    } while (h != 1);
+}
+
+//Todas as funcoes seguintes sao usadas para o funcionamento correto do HeapSort
 void Refaz(int Esq, int Dir, TCarta* pCarta){
     int j = Esq * 2;
     TCarta aux = pCarta[Esq];
@@ -109,4 +134,3 @@ void HeapSort(TCarta* pCarta, const int* tamanho){
         Refaz(1, Dir, pCarta);  // Ajuste aqui para usar Esq = 1
     }
 }
-
