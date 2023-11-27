@@ -2,46 +2,84 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void MaoInicial(TCarta *pCarta) {
+    for (int i = 0; i < 10; i++) {
+        int cor, tipo;
+        
+        printf("Cor carta %d (0-VERDE, 1-AMARELO, 2-VERMELHO, 3-AZUL, 4-PRETO): ", i + 1);
+        scanf("%d", &cor);
+        pCarta[i].cor = (Cor)cor; //converte um valor inteiro para o tipo de enumeração Cor
 
-void MaoInicial(TCarta* pCarta){
-    for (int i = 0; i < 10; i++){
-        printf("Cor carta %s: ", i+1);
-        scanf(" %c", & pCarta[i].cor);
-        printf("Valor carta %d: ", i+1);
-        scanf("%d", & pCarta[i].valor);
+        printf("Tipo carta %d (0-NUMERO, 1-PULAR, 2-VOLTAR, 3-MAIS_DOIS, 4-MAIS_QUATRO, 5-CORINGA): ", i + 1);
+        scanf("%d", &tipo);
+        pCarta[i].tipo = (Tipo)tipo; //converte um valor inteiro para o tipo de enumeração Tipo
+        
+        if(tipo == 0){
+            printf("Valor carta %d: ", i + 1);
+            scanf("%d", &pCarta[i].valor);
         }
-    }
-/*Essa funcao tranforma a cor em inteiros para que fique mais 
-facil de ordena-lo*/
-void DefineOrdem(TCarta* pCarta){
-    for (int i = 0; i < 10; i++){
-        if(pCarta[i].cor == "Verde"){
-            pCarta[i].cor = 1;
+        
+        else if(tipo == 1){
+            pCarta[i].valor = 10;
         }
-        else if(pCarta[i].cor == "Amarelo"){
-            pCarta[i].cor = 2;
+
+        else if(tipo == 2){
+            pCarta[i].valor = 11;
         }
-        else if(pCarta[i].cor == "Vermelho"){
-            pCarta[i].cor = 3;
+
+        else if(tipo == 3){
+            pCarta[i].valor = 12;
         }
-        else {
-            pCarta[i].cor = 4;
+
+        else if(tipo == 4){
+            pCarta[i].valor = 13;
         }
+
+        else if(tipo == 5){
+            pCarta[i].valor = 14;
+        }
+
+        else{
+            printf("insira um valor correto");
+        }
+        
     }
 }
-void Destroca(TCarta* pCarta){
-    for (int i = 0; i < 10; i++){
-        if(pCarta[i].cor == 1){
-            pCarta[i].cor = "Verde";
-        }
-        else if(pCarta[i].cor == 2){
-            pCarta[i].cor = "Amarelo";
-        }
-        else if(pCarta[i].cor == 3){
-            pCarta[i].cor = "Vermelho";
-        }
-        else {
-            pCarta[i].cor = "Azul";
+
+void ImprimirMao(TCarta cartas[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("[%d]: ", i + 1);
+        switch (cartas[i].tipo) {
+            case NUMERO:
+                printf("%s %d\n", cartas[i].cor == VERDE ? VERDE_P"Verde"NORMAL_P :
+                                       cartas[i].cor == AMARELO ? AMARELO_P"Amarelo"NORMAL_P :
+                                       cartas[i].cor == VERMELHO ? VERMELHO_P"Vermelho"NORMAL_P : AZUL_P"Azul"NORMAL_P,
+                       cartas[i].valor);
+                break;
+            case PULAR:
+                printf("%s Pular%s\n", cartas[i].cor == VERDE ? VERDE_P : 
+                                       cartas[i].cor == AMARELO ? AMARELO_P : 
+                                       cartas[i].cor == VERMELHO ? VERMELHO_P : AZUL_P,
+                                       NORMAL_P);
+                break;
+            case VOLTAR:
+                printf("%s Voltar%s\n", cartas[i].cor == VERDE ? VERDE_P : 
+                                        cartas[i].cor == AMARELO ? AMARELO_P : 
+                                        cartas[i].cor == VERMELHO ? VERMELHO_P : AZUL_P,
+                                        NORMAL_P);
+                break;
+            case MAIS_DOIS:
+                printf("%s +2%s\n", cartas[i].cor == VERDE ? VERDE_P : 
+                                   cartas[i].cor == AMARELO ? AMARELO_P : 
+                                   cartas[i].cor == VERMELHO ? VERMELHO_P : AZUL_P,
+                                   NORMAL_P);
+                break;
+            case MAIS_QUATRO:
+                printf("%sPreto +4%s\n", VERDE_P, NORMAL_P);
+                break;
+            case CORINGA:
+                printf("%sPreto Coringa%s\n", VERDE_P, NORMAL_P);
+                break;
         }
     }
 }
