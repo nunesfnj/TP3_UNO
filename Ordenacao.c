@@ -1,30 +1,29 @@
 #include "Ordenacao.h"
 #include <stdio.h>
+#include <time.h>
 
 // Variáveis globais para rastrear a complexidade
 int comparacoes = 0;
 int movimentacoes = 0;
+clock_t start_time, end_time;
+double cpu_time_used;
 
 void ImprimirComplexidade() {
-    printf("Comparacoes: %d, Movimentacoes: %d", comparacoes, movimentacoes);
+    printf("Comparacoes: %d, Movimentacoes: %d, Tempo: %f segundos\n", comparacoes, movimentacoes, cpu_time_used);
 }
 
 void BubbleSort(TCarta* pCarta, int tamanho) {
     int i, j;
     TCarta aux;
 
+    // Início da contagem de tempo
+    start_time = clock();
+
     for (i = 0; i < tamanho - 1; i++) {
         for (j = 1; j < tamanho - i; j++) {
             // Compara primeiro as cores
             comparacoes++;
-            if (pCarta[j].cor < pCarta[j - 1].cor) {
-                aux = pCarta[j];
-                pCarta[j] = pCarta[j - 1];
-                pCarta[j - 1] = aux;
-                movimentacoes++;
-            }
-            // Se as cores são iguais, compara pelos valores
-            else if (pCarta[j].cor == pCarta[j - 1].cor && pCarta[j].valor < pCarta[j - 1].valor) {
+            if ((pCarta[j].cor < pCarta[j - 1].cor) || (pCarta[j].cor == pCarta[j - 1].cor && pCarta[j].valor < pCarta[j - 1].valor)) {
                 aux = pCarta[j];
                 pCarta[j] = pCarta[j - 1];
                 pCarta[j - 1] = aux;
@@ -32,11 +31,18 @@ void BubbleSort(TCarta* pCarta, int tamanho) {
             }
         }
     }
+
+    // Fim da contagem de tempo
+    end_time = clock();
+    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 }
 
-void SelectSort(TCarta* pCarta, int tamanho) {
+void SelectionSort(TCarta* pCarta, int tamanho) {
     int i, j, Min;
     TCarta aux;
+    
+    // Início da contagem de tempo
+    start_time = clock();
     
     for (i = 0; i < tamanho - 1; i++) {
         Min = i;
@@ -59,32 +65,12 @@ void SelectSort(TCarta* pCarta, int tamanho) {
             movimentacoes++;
         }
     }
+
+    // Fim da contagem de tempo
+    end_time = clock();
+    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 }
 
-void ShellSort(TCarta* pCarta, int tamanho) {
-    int i, j;
-    int h = 1;
-    TCarta aux;
-
-    do h = h * 3 + 1; while (h < tamanho);
-    
-    do {
-        h = h / 3;
-        for (i = h; i < tamanho; i++) {
-            aux = pCarta[i];
-            j = i;
-
-            while (j >= h && (pCarta[j - h].cor > aux.cor || (pCarta[j - h].cor == aux.cor && pCarta[j - h].valor > aux.valor))) {
-                pCarta[j] = pCarta[j - h];
-                j -= h;
-            }
-
-            pCarta[j] = aux;
-        }
-    } while (h != 1);
-}
-
-//Todas as funcoes seguintes sao usadas para o funcionamento correto do HeapSort
 void Refaz(int Esq, int Dir, TCarta* pCarta){
     int j = Esq * 2;
     TCarta aux = pCarta[Esq];
@@ -122,6 +108,10 @@ void Constroi(TCarta* pCarta, const int* tamanho){
 void HeapSort(TCarta* pCarta, const int* tamanho){
     int Esq, Dir;
     TCarta aux;
+
+    // Início da contagem de tempo
+    start_time = clock();
+    
     Constroi(pCarta, tamanho); /* constroi o heap */
     
     Dir = *tamanho;
@@ -133,4 +123,8 @@ void HeapSort(TCarta* pCarta, const int* tamanho){
         Dir--;
         Refaz(1, Dir, pCarta);  // Ajuste aqui para usar Esq = 1
     }
+    // Fim da contagem de tempo
+    end_time = clock();
+    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 }
+
