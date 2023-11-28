@@ -65,6 +65,42 @@ void SelectionSort(TCarta* pCarta, int tamanho) {
             movimentacoes++;
         }
     }
+    
+
+void insertion(TCarta* pCarta, int n){
+    int i, j;
+    TCarta aux;
+    for(i = 1; i < tamanho - 1; i++) {
+comparações++; 
+    if (pCarta.cor == pCarta[i-1].cor){
+     aux = pCarta[i];
+     j = i-1;
+        
+
+    while( (j >= 0 ) &&(aux.valor < pCarta.valor) {
+      pCarta[j+1] = pCarta[j];
+      j--;
+movimentações++;
+          }
+          pCarta[j+1] = aux;
+
+
+    }
+Else if (pCarta.cor < pCarta[i-1].cor) {
+    aux = pCarta[i];
+    j = i-1;
+comparações++;
+
+    while((j >= 0) && (aux.cor < pCarta.cor)) {
+    pCarta[j+1] = pCarta[j];
+    j--;
+movimentações;
+    }
+
+}
+}
+}
+
 
     // Fim da contagem de tempo
     end_time = clock();
