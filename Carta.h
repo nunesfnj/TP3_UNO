@@ -22,4 +22,6 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
+void MaoInicialCopia(TCarta* pCarta, TCarta *pCartaCopia);
+void MaoInicialAleatoria(TCarta *pCarta);
 void ImprimirMao(TCarta cartas[], int tamanho);
