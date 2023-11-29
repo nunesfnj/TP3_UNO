@@ -47,6 +47,14 @@ void MaoInicial(TCarta *pCarta) {
     }
 }
 
+void MaoInicialCopia(TCarta *pCartaOriginal, TCarta *pCartaCopia) {
+    for (int i = 0; i < 10; i++) {
+        pCartaCopia[i].cor = pCartaOriginal[i].cor;
+        pCartaCopia[i].tipo = pCartaOriginal[i].tipo;
+        pCartaCopia[i].valor = pCartaOriginal[i].valor;
+    }
+}
+
     void ImprimirMao(TCarta cartas[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         printf("[%d]: ", i + 1);
