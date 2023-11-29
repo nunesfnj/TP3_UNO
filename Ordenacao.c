@@ -71,33 +71,89 @@ void SelectionSort(TCarta* pCarta, int tamanho) {
     cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 }
 
-void InsertionSort(TCarta* pCarta, int tamanho){
+void InsertionSort(TCarta* pCarta, int tamanho) {
     int i, j;
     TCarta aux;
-    
-    for(i = 1; i < tamanho - 1; i++) {
-        if (pCarta.cor == pCarta[i-1].cor){
-            aux = pCarta[i]
-            j = i-1
 
-    while( (j >= 0 ) &&(aux.valor < pCarta.valor) {
-      pCarta[j+1] = pCarta[j];
-      j--;
-          }
-          pCarta[j+1] = aux;
-    }
-        else if (pCarta.cor < pCarta[i-1].cor) {
+    for (i = 1; i < tamanho; i++) {
         aux = pCarta[i];
-        j = i-1;
+        j = i - 1;
 
-    while((j >= 0) && (aux.cor < pCarta.cor)) {
-        pCarta[j+1] = pCarta[j];
-        j--;
-    }
+        while ((j >= 0) && ((aux.cor == pCarta[j].cor && aux.valor < pCarta[j].valor) || (aux.cor < pCarta[j].cor))) {
+            pCarta[j + 1] = pCarta[j];
+            j--;
+        }
 
-    }
+        pCarta[j + 1] = aux;
     }
 }
+
+void ShellSort(TCarta* pCarta, int tamanho) {
+    int i, j;
+    int h = 1;
+    TCarta aux;
+
+    do {
+        h = h * 3 + 1;
+    } while (h < tamanho);
+
+    do {
+        h = h / 3;
+        for (i = h; i < tamanho; i++) {
+            aux = pCarta[i];
+            j = i;
+            
+            // Comparação considerando cor e valor
+            while (pCarta[j - h].cor > aux.cor || (pCarta[j - h].cor == aux.cor && pCarta[j - h].valor > aux.valor)) {
+                pCarta[j] = pCarta[j - h];
+                j -= h;
+                if (j < h) break;
+            }
+            
+            pCarta[j] = aux;
+        }
+    } while (h != 1);
+}
+
+
+
+
+void Particao(int Esq, int Dir, int *i, int *j, TCarta* pCarta) {
+    TCarta pivo, aux;
+    *i = Esq;
+    *j = Dir;
+    pivo = pCarta[(*i + *j) / 2]; /* obtem o pivo x */
+    do {
+        while ((pCarta[*i].cor < pivo.cor) || (pCarta[*i].cor == pivo.cor && pCarta[*i].valor < pivo.valor))
+            (*i)++;
+        while ((pCarta[*j].cor > pivo.cor) || (pCarta[*j].cor == pivo.cor && pCarta[*j].valor > pivo.valor))
+            (*j)--;
+        if (*i <= *j) {
+            aux = pCarta[*i];
+            pCarta[*i] = pCarta[*j];
+            pCarta[*j] = aux;
+            (*i)++;
+            (*j)--;
+        }
+    } while (*i <= *j);
+}
+
+void Ordena(int Esq, int Dir, TCarta* pCarta) {
+    int i, j;
+    Particao(Esq, Dir, &i, &j, pCarta);
+    if (Esq < j)
+        Ordena(Esq, j, pCarta);
+    if (i < Dir)
+        Ordena(i, Dir, pCarta);
+}
+
+
+void QuickSort(TCarta* pCarta, int tamanho){
+    Ordena(0, tamanho-1, pCarta);
+}
+
+
+
 
 
 void Refaz(int i, int tamanho, TCarta* pCarta) {
