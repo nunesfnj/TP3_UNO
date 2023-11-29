@@ -65,102 +65,84 @@ void SelectionSort(TCarta* pCarta, int tamanho) {
             movimentacoes++;
         }
     }
-    
 
-void insertion(TCarta* pCarta, int n){
+    // Fim da contagem de tempo
+    end_time = clock();
+    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
+}
+
+void InsertionSort(TCarta* pCarta, int tamanho){
     int i, j;
     TCarta aux;
+    
     for(i = 1; i < tamanho - 1; i++) {
-comparações++; 
-    if (pCarta.cor == pCarta[i-1].cor){
-     aux = pCarta[i];
-     j = i-1;
-        
+        if (pCarta.cor == pCarta[i-1].cor){
+            aux = pCarta[i]
+            j = i-1
 
     while( (j >= 0 ) &&(aux.valor < pCarta.valor) {
       pCarta[j+1] = pCarta[j];
       j--;
-movimentações++;
           }
           pCarta[j+1] = aux;
-
-
     }
-Else if (pCarta.cor < pCarta[i-1].cor) {
-    aux = pCarta[i];
-    j = i-1;
-comparações++;
+        else if (pCarta.cor < pCarta[i-1].cor) {
+        aux = pCarta[i];
+        j = i-1;
 
     while((j >= 0) && (aux.cor < pCarta.cor)) {
-    pCarta[j+1] = pCarta[j];
-    j--;
-movimentações;
+        pCarta[j+1] = pCarta[j];
+        j--;
     }
 
-}
-}
-}
-
-
-    // Fim da contagem de tempo
-    end_time = clock();
-    cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
+    }
+    }
 }
 
-void Refaz(int Esq, int Dir, TCarta* pCarta){
-    int j = Esq * 2;
-    TCarta aux = pCarta[Esq];
+
+void Refaz(int i, int tamanho, TCarta* pCarta) {
+    int j = i * 2 + 1;
+    TCarta aux = pCarta[i];
     
-    while (j <= Dir){
-        if ((j < Dir) && (
-            pCarta[j].cor < pCarta[j+1].cor ||
-            (pCarta[j].cor == pCarta[j+1].cor && pCarta[j].valor < pCarta[j+1].valor)
-        )) {
+    while (j < tamanho) {
+        if (j + 1 < tamanho && 
+            (pCarta[j].cor < pCarta[j + 1].cor || 
+            (pCarta[j].cor == pCarta[j + 1].cor && pCarta[j].valor < pCarta[j + 1].valor)))
             j++;
-        }
-        
-        if (aux.cor > pCarta[j].cor || (aux.cor == pCarta[j].cor && aux.valor > pCarta[j].valor)) {  // Ajuste aqui para corrigir a condição
+        if (aux.cor > pCarta[j].cor || 
+            (aux.cor == pCarta[j].cor && aux.valor >= pCarta[j].valor))
             break;
-        }
-        
-        pCarta[Esq] = pCarta[j];
-        Esq = j;
-        j = Esq * 2;
+        pCarta[i] = pCarta[j];
+        i = j;
+        j = i * 2 + 1;
     }
-    
-    pCarta[Esq] = aux;
+    pCarta[i] = aux;
 }
 
-
-void Constroi(TCarta* pCarta, const int* tamanho){
-    int Esq;
-    Esq = *tamanho / 2 + 1;
-    while (Esq > 1){
-        Esq--;
-        Refaz(Esq, *tamanho, pCarta);
+void Constroi(TCarta* pCarta, int tamanho) {
+    int i = tamanho / 2;
+    while (i > 0) {
+        i--;
+        Refaz(i, tamanho, pCarta);
     }
 }
 
-void HeapSort(TCarta* pCarta, const int* tamanho){
-    int Esq, Dir;
+void HeapSort(TCarta *pCarta, int tamanho) {
     TCarta aux;
-
-    // Início da contagem de tempo
     start_time = clock();
-    
-    Constroi(pCarta, tamanho); /* constroi o heap */
-    
-    Dir = *tamanho;
-    
-    while (Dir > 1) { /* ordena o vetor */
-        aux = pCarta[1];
-        pCarta[1] = pCarta[Dir];
-        pCarta[Dir] = aux;
-        Dir--;
-        Refaz(1, Dir, pCarta);  // Ajuste aqui para usar Esq = 1
+    Constroi(pCarta, tamanho);
+    while (tamanho > 1) {
+        tamanho--;
+        aux = pCarta[0];
+        pCarta[0] = pCarta[tamanho];
+        pCarta[tamanho] = aux;
+        Refaz(0, tamanho, pCarta);
     }
     // Fim da contagem de tempo
     end_time = clock();
     cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 }
+
+
+
 
