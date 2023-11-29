@@ -50,10 +50,29 @@ int main() {
     ImprimirMao(copia2, numCartas);
     ImprimirComplexidade();
 
-    HeapSort(copia3, numCartas);
-    printf("\nHeapSort:\n");
+
+    InsertionSort(copia3, numCartas); //SE DER TEMPO, voltar numCartas constante
+    printf("\nInsertionSort:\n");
     ImprimirMao(copia3, numCartas);
-    //falta fazer complexidade
+    ImprimirComplexidade(); //falta fazer
+
+
+    ShellSort(copia4, numCartas);
+    printf("\nShellSort:\n");
+    ImprimirMao(copia4, numCartas);
+    ImprimirComplexidade(); //falta fazer
+
+
+    QuickSort(copia5, numCartas);
+    printf("\nQuickSort:\n");
+    ImprimirMao(copia5, numCartas);
+    ImprimirComplexidade(); //falta fazer
+
+
+    HeapSort(copia6, numCartas);
+    printf("\nHeapSort:\n");
+    ImprimirMao(copia6, numCartas);
+    ImprimirComplexidade();//falta fazer complexidade
     }
 
     return 0;
