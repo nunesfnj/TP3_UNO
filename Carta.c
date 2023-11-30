@@ -51,7 +51,7 @@ void NovaCarta(TCarta *pcarta, Cor cor, Tipo tipo, int valor) {
     pcarta->cor = cor;
     pcarta->tipo = tipo;
 
-    if (pcarta->tipo != NUMERO) {
+    if (pcarta->tipo == NUMERO) {
         pcarta->valor = valor;
     }
 }
@@ -64,9 +64,9 @@ void MaoInicialCopia(TCarta *pCartaOriginal, TCarta *pCartaCopia) {
     }
 }
 
-Cor cor(FILE* arq, TCarta* pcarta) {
-    char CorAux[20];  // Ajuste no tipo da variável para armazenar a string
-    fscanf(arq, " %s", CorAux);  // Corrigir para ler a string do arquivo
+Cor LerCor(FILE* arq, char* CorAux) {
+    //char CorAux[20];  // Ajuste no tipo da variável para armazenar a string
+    //fscanf(arq, "%s", CorAux);   Corrigir para ler a string do arquivo
 
     if (strcmp(CorAux, "Verde") == 0) {
         return VERDE;
@@ -88,9 +88,9 @@ Cor cor(FILE* arq, TCarta* pcarta) {
 
 
 // Função para converter uma string para Tipo
-Tipo tipo(FILE* arq, TCarta* pcarta) {
-    char TipoAux[10];  // Ajuste no tipo da variável para armazenar a string
-    fscanf(arq, " %s", TipoAux);  // Corrigir para ler a string do arquivo
+Tipo LerTipo(FILE* arq, char* TipoAux, TCarta *pcarta) {
+    //char TipoAux[20];  // Ajuste no tipo da variável para armazenar a string
+    //fscanf(arq, " %s", TipoAux);   Corrigir para ler a string do arquivo
 
     if (strcmp(TipoAux, "Pular") == 0) {
         return PULAR;
@@ -102,16 +102,49 @@ Tipo tipo(FILE* arq, TCarta* pcarta) {
         return MAIS_QUATRO;
     } else if (strcmp(TipoAux, "Coringa") == 0) {
         return CORINGA;
-    } else {
+    } else if (strcmp(TipoAux, "0") == 0){
+        pcarta->valor = 0;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "1") == 0){
+        pcarta->valor = 1;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "2") == 0){
+        pcarta->valor = 2;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "3") == 0){
+        pcarta->valor = 3;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "4") == 0){
+        pcarta->valor = 4;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "5") == 0){
+        pcarta->valor = 5;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "6") == 0){
+        pcarta->valor = 6;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "7") == 0){
+        pcarta->valor = 7;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "8") == 0){
+        pcarta->valor = 8;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "9") == 0){
+        pcarta->valor = 9;
+        return NUMERO;
+    }else if (strcmp(TipoAux, "10") == 0){
+        pcarta->valor = 10;
         return NUMERO;
     }
 }
 
 
+
+
 /*void LerCarta(FILE *arq, TCarta *cartas, int indice) {
     char corStr[20];
     char tipoStr[20];
-    fscanf(arq, "(%s %d) ", corStr, &cartas[indice].valor);
+    fscanf(arq, "(%s %s ", corStr, &cartas[indice].valor);
     cartas[indice].cor = LerCor(arq, corStr);
     cartas[indice].tipo = LerTipo(arq, tipoStr);
 }
@@ -119,16 +152,16 @@ Tipo tipo(FILE* arq, TCarta* pcarta) {
 
 void MaoInicialArquivo(FILE* arq, TCarta* pCarta, int N) {
     char CorAux[20];  // Declare CorAux aqui
-    for (int i = 0; i < N; i++) {
-        TCarta v;
-        fscanf(arq, "(%s %d) ", CorAux, &v.valor);
-        v.cor = cor(arq, &v);  // Não é necessário passar &v para cor
-        v.tipo = tipo(arq, &v);  // Não é necessário passar &v para tipo
-        pCarta[i] = v;
+    char TipoAux[20];
+    for(int i= 0; i < N; i++){
+        TCarta cartas[N][10];
+        for (int j = 0; j < 10; j++) {
+            fscanf(arq, " (%[^( ] %[^)])", CorAux, TipoAux);
+            cartas[i][j].cor = LerCor(arq, CorAux);  
+            cartas[i][j].tipo = LerTipo(arq, TipoAux, pCarta);
+        }
     }
 }
-
-
 
     void ImprimirMao(TCarta cartas[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
@@ -163,4 +196,4 @@ void MaoInicialArquivo(FILE* arq, TCarta* pCarta, int N) {
                 break;
         }
     }
-}
+    }
