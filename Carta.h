@@ -1,12 +1,5 @@
 #include <stdio.h>
 
-//definindo as cores para printar as cartas bonitinhas
-#define VERMELHO_P "\033[31m"
-#define VERDE_P "\033[32m"
-#define AMARELO_P "\033[33m"
-#define AZUL_P "\033[34m"
-#define NORMAL_P "\033[0m"
-
 typedef enum{
     VERDE,
     AMARELO, 
@@ -31,4 +24,8 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
+void NovaCarta(TCarta *pcarta, Cor cor, Tipo tipo, int valor);
+void LerCarta(FILE *arq, TCarta *cartas, int indice);
+void MaoInicialCopia(TCarta* pCarta, TCarta *pCartaCopia);
+void MaoInicialArquivo(FILE *arq, TCarta *pCarta, int N);
 void ImprimirMao(TCarta cartas[], int tamanho);
