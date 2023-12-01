@@ -47,15 +47,6 @@ void MaoInicial(TCarta *pCarta) {
     }
 }
 
-void NovaCarta(TCarta *pcarta, Cor cor, Tipo tipo, int valor) {
-    pcarta->cor = cor;
-    pcarta->tipo = tipo;
-
-    if (pcarta->tipo == NUMERO) {
-        pcarta->valor = valor;
-    }
-}
-
 void MaoInicialCopia(TCarta *pCartaOriginal, TCarta *pCartaCopia) {
     for (int i = 0; i < 10; i++) {
         pCartaCopia[i].cor = pCartaOriginal[i].cor;
@@ -138,32 +129,19 @@ Tipo LerTipo(FILE* arq, char* TipoAux, TCarta *pcarta) {
     }
 }
 
-
-
-
-/*void LerCarta(FILE *arq, TCarta *cartas, int indice) {
-    char corStr[20];
-    char tipoStr[20];
-    fscanf(arq, "(%s %s ", corStr, &cartas[indice].valor);
-    cartas[indice].cor = LerCor(arq, corStr);
-    cartas[indice].tipo = LerTipo(arq, tipoStr);
-}
-*/
-
-void MaoInicialArquivo(FILE* arq, TCarta* pCarta, int N) {
+void MaoInicialArquivo(FILE* arq, TCarta (*pCarta)[10], int N) {
     char CorAux[20];  // Declare CorAux aqui
     char TipoAux[20];
-    for(int i= 0; i < N; i++){
-        TCarta cartas[N][10];
+    for(int i = 0; i < N; i++) {
         for (int j = 0; j < 10; j++) {
             fscanf(arq, " (%[^( ] %[^)])", CorAux, TipoAux);
-            cartas[i][j].cor = LerCor(arq, CorAux);  
-            cartas[i][j].tipo = LerTipo(arq, TipoAux, pCarta);
+            pCarta[i][j].cor = LerCor(arq, CorAux);  
+            pCarta[i][j].tipo = LerTipo(arq, TipoAux, &pCarta[i][j]);
         }
     }
 }
 
-    void ImprimirMao(TCarta cartas[], int tamanho) {
+void ImprimirMao(TCarta cartas[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         printf("[%d]: ", i + 1);
         switch (cartas[i].tipo) {
@@ -197,3 +175,43 @@ void MaoInicialArquivo(FILE* arq, TCarta* pCarta, int N) {
         }
     }
     }
+
+// usado para imprimir a mao no arquivo
+void ImprimirCartas(TCarta cartas[][10], int N) {
+    for (int i = 0; i < N; i++) {
+        printf("Conjunto %d:\n", i + 1);
+        for (int j = 0; j < 10; j++) {
+            printf("[%d]: ", j + 1);
+            switch (cartas[i][j].tipo) {
+                case NUMERO:
+                    printf("%s %d\n", cartas[i][j].cor == VERDE ? "Verde" :
+                                           cartas[i][j].cor == AMARELO ? "Amarelo" :
+                                           cartas[i][j].cor == VERMELHO ? "Vermelho" : "Azul",
+                           cartas[i][j].valor);
+                    break;
+                case PULAR:
+                    printf("%s Pular\n", cartas[i][j].cor == VERDE ? "Verde" :
+                                           cartas[i][j].cor == AMARELO ? "Amarelo" :
+                                           cartas[i][j].cor == VERMELHO ? "Vermelho" : "Azul");
+                    break;
+                case VOLTAR:
+                    printf("%s Voltar\n", cartas[i][j].cor == VERDE ? "Verde" :
+                                           cartas[i][j].cor == AMARELO ? "Amarelo" :
+                                           cartas[i][j].cor == VERMELHO ? "Vermelho" : "Azul");
+                    break;
+                case MAIS_DOIS:
+                    printf("%s +2\n", cartas[i][j].cor == VERDE ? "Verde" :
+                                       cartas[i][j].cor == AMARELO ? "Amarelo" :
+                                       cartas[i][j].cor == VERMELHO ? "Vermelho" : "Azul");
+                    break;
+                case MAIS_QUATRO:
+                    printf("Preto +4\n");
+                    break;
+                case CORINGA:
+                    printf("Preto Coringa\n");
+                    break;
+            }
+        }
+        printf("\n");
+    }
+}
