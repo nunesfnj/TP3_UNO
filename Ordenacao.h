@@ -18,3 +18,8 @@ void QuickSort(TCarta* pCarta, int tamanho);
 void Refaz(int Esq, int Dir, TCarta* pCarta);
 void Constroi(TCarta* pCarta, int tamanho);
 void HeapSort(TCarta* pCarta, int tamanho);
+
+void BubbleSortArquivo(TCarta (*pCarta)[10], int N);
+void SelectionSortArquivo(TCarta (*pCarta)[10], int N);
+void InsertionSortArquivo(TCarta (*pCarta)[10], int N);
+void ShellSortArquivo(TCarta (*pCarta)[10], int N);
