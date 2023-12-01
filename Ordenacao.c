@@ -206,5 +206,114 @@ void HeapSort(TCarta *pCarta, int tamanho) {
 }
 
 
+void BubbleSortArquivo(TCarta (*pCarta)[10], int N) {
+    int i, j;
+    TCarta aux;
+
+    start_time = clock();
+
+    for (int k = 0; k < N; k++) {
+        for (i = 0; i < 10 - 1; i++) {
+            for (j = 1; j < 10 - i; j++) {
+                comparacoes++;
+                if ((pCarta[k][j].cor < pCarta[k][j - 1].cor) || (pCarta[k][j].cor == pCarta[k][j - 1].cor && pCarta[k][j].valor < pCarta[k][j - 1].valor)) {
+                    aux = pCarta[k][j];
+                    pCarta[k][j] = pCarta[k][j - 1];
+                    pCarta[k][j - 1] = aux;
+                    movimentacoes += 3;
+                }
+            }
+        }
+    }
+
+    end_time = clock();
+    cpu_time_used = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+}
+
+void SelectionSortArquivo(TCarta (*pCarta)[10], int N) {
+    int i, j, Min;
+    TCarta aux;
+
+    start_time = clock();
+
+    for (int k = 0; k < N; k++) {
+        for (i = 0; i < 10 - 1; i++) {
+            Min = i;
+
+            for (j = i + 1; j < 10; j++) {
+                comparacoes++;
+                if (pCarta[k][j].cor < pCarta[k][Min].cor) {
+                    Min = j;
+                } else if (pCarta[k][j].cor == pCarta[k][Min].cor && pCarta[k][j].valor < pCarta[k][Min].valor) {
+                    Min = j;
+                }
+            }
+
+            if (Min != i) {
+                aux = pCarta[k][Min];
+                pCarta[k][Min] = pCarta[k][i];
+                pCarta[k][i] = aux;
+                movimentacoes += 3;
+            }
+        }
+    }
+}
+
+void InsertionSortArquivo(TCarta (*pCarta)[10], int N) {
+    int i, j;
+    TCarta aux;
+
+    for (int k = 0; k < N; k++) {
+        for (i = 1; i < 10; i++) {
+            comparacoes++;
+            aux = pCarta[k][i];
+            j = i - 1;
+
+            while ((j >= 0) && ((aux.cor == pCarta[k][j].cor && aux.valor < pCarta[k][j].valor) || (aux.cor < pCarta[k][j].cor))) {
+                pCarta[k][j + 1] = pCarta[k][j];
+                j--;
+                movimentacoes++;
+            }
+
+            pCarta[k][j + 1] = aux;
+        }
+    }
+}
+
+void ShellSortArquivo(TCarta (*pCarta)[10], int N) {
+    int i, j;
+    int h = 1;
+    TCarta aux;
+
+    start_time = clock();
+
+    do {
+        h = h * 3 + 1;
+    } while (h < 10);
+
+    do {
+        h = h / 3;
+        for (int k = 0; k < N; k++) {
+            for (i = h; i < 10; i++) {
+                aux = pCarta[k][i];
+                j = i;
+
+                comparacoes++;
+                while (pCarta[k][j - h].cor > aux.cor || (pCarta[k][j - h].cor == aux.cor && pCarta[k][j - h].valor > aux.valor)) {
+                    pCarta[k][j] = pCarta[k][j - h];
+                    movimentacoes++;
+                    j -= h;
+                    if (j < h)
+                        break;
+                }
+
+                pCarta[k][j] = aux;
+            }
+        }
+    } while (h != 1);
+
+    end_time = clock();
+    cpu_time_used = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+}
 
 
