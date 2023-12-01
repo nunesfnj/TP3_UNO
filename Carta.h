@@ -24,8 +24,8 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
-void NovaCarta(TCarta *pcarta, Cor cor, Tipo tipo, int valor);
-void LerCarta(FILE *arq, TCarta *cartas, int indice);
+
 void MaoInicialCopia(TCarta* pCarta, TCarta *pCartaCopia);
-void MaoInicialArquivo(FILE *arq, TCarta *pCarta, int N);
+void MaoInicialArquivo(FILE* arq, TCarta (*pCarta)[10], int N);
 void ImprimirMao(TCarta cartas[], int tamanho);
+void ImprimirCartas(TCarta cartas[][10], int N);
