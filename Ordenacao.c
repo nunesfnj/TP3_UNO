@@ -27,7 +27,7 @@ void BubbleSort(TCarta* pCarta, int tamanho) {
                 aux = pCarta[j];
                 pCarta[j] = pCarta[j - 1];
                 pCarta[j - 1] = aux;
-                movimentacoes++;
+                movimentacoes += 3;
             }
         }
     }
@@ -62,7 +62,7 @@ void SelectionSort(TCarta* pCarta, int tamanho) {
             aux = pCarta[Min];
             pCarta[Min] = pCarta[i];
             pCarta[i] = aux;
-            movimentacoes++;
+            movimentacoes += 3;
         }
     }
 
@@ -76,12 +76,14 @@ void InsertionSort(TCarta* pCarta, int tamanho) {
     TCarta aux;
 
     for (i = 1; i < tamanho; i++) {
+        comparacoes ++;
         aux = pCarta[i];
         j = i - 1;
 
         while ((j >= 0) && ((aux.cor == pCarta[j].cor && aux.valor < pCarta[j].valor) || (aux.cor < pCarta[j].cor))) {
             pCarta[j + 1] = pCarta[j];
             j--;
+            movimentacoes ++;
         }
 
         pCarta[j + 1] = aux;
@@ -103,9 +105,11 @@ void ShellSort(TCarta* pCarta, int tamanho) {
             aux = pCarta[i];
             j = i;
             
+            comparacoes ++;
             // Comparação considerando cor e valor
             while (pCarta[j - h].cor > aux.cor || (pCarta[j - h].cor == aux.cor && pCarta[j - h].valor > aux.valor)) {
                 pCarta[j] = pCarta[j - h];
+                movimentacoes++;
                 j -= h;
                 if (j < h) break;
             }
@@ -134,26 +138,26 @@ void Particao(int Esq, int Dir, int *i, int *j, TCarta* pCarta) {
             pCarta[*j] = aux;
             (*i)++;
             (*j)--;
+            movimentacoes += 3;
         }
     } while (*i <= *j);
 }
 
 void Ordena(int Esq, int Dir, TCarta* pCarta) {
     int i, j;
+    comparacoes ++;
     Particao(Esq, Dir, &i, &j, pCarta);
     if (Esq < j)
         Ordena(Esq, j, pCarta);
+
     if (i < Dir)
         Ordena(i, Dir, pCarta);
+    
 }
-
 
 void QuickSort(TCarta* pCarta, int tamanho){
     Ordena(0, tamanho-1, pCarta);
 }
-
-
-
 
 
 void Refaz(int i, int tamanho, TCarta* pCarta) {
@@ -161,6 +165,7 @@ void Refaz(int i, int tamanho, TCarta* pCarta) {
     TCarta aux = pCarta[i];
     
     while (j < tamanho) {
+        comparacoes ++;
         if (j + 1 < tamanho && 
             (pCarta[j].cor < pCarta[j + 1].cor || 
             (pCarta[j].cor == pCarta[j + 1].cor && pCarta[j].valor < pCarta[j + 1].valor)))
@@ -180,6 +185,7 @@ void Constroi(TCarta* pCarta, int tamanho) {
     while (i > 0) {
         i--;
         Refaz(i, tamanho, pCarta);
+        movimentacoes ++;
     }
 }
 
