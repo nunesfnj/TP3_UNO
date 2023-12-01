@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 typedef enum{
     VERDE,
     AMARELO, 
@@ -22,6 +24,8 @@ typedef struct{
 } TCarta;
 
 void MaoInicial(TCarta* pCarta);
+
 void MaoInicialCopia(TCarta* pCarta, TCarta *pCartaCopia);
-void MaoInicialAleatoria(TCarta *pCarta);
+void MaoInicialArquivo(FILE* arq, TCarta (*pCarta)[10], int N);
 void ImprimirMao(TCarta cartas[], int tamanho);
+void ImprimirCartas(TCarta cartas[][10], int N);
